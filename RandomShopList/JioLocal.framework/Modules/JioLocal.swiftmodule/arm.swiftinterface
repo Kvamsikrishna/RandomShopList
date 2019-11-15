@@ -4,7 +4,6 @@
 import CoreLocation
 import Foundation
 @_exported import JioLocal
-import MapKit
 import MobileCoreServices
 import Security
 import Swift
@@ -125,9 +124,6 @@ open class HTTPSecurity {
   open func createErrorView(message: Swift.String)
   @objc override dynamic open func layoutSubviews()
   @objc deinit
-}
-extension UIViewController {
-  public func loadMyFonts()
 }
 final public class MoaSimulatedImageDownloader {
   final public let url: Swift.String
