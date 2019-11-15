@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
-// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name JioLocal
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name JioLocal
 import CoreLocation
 import Foundation
 @_exported import JioLocal
@@ -55,13 +55,13 @@ extension URLRequest {
   public init?(urlString: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, cachePolicy: Foundation.URLRequest.CachePolicy = .useProtocolCachePolicy, timeoutInterval: Foundation.TimeInterval = 60)
   public var verb: JioLocal.HTTPVerb {
     get
-    set(newValue)
+    set
   }
-  public mutating func appendParameters(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
-  public mutating func appendParametersAsQueryString(_ parameters: JioLocal.HTTPParameterProtocol)
-  public mutating func appendParametersAsUrlEncoding(_ parameters: JioLocal.HTTPParameterProtocol)
-  public mutating func appendParametersAsMultiPartFormData(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
-  public mutating func appendParametersAsJSON(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  mutating public func appendParameters(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  mutating public func appendParametersAsQueryString(_ parameters: JioLocal.HTTPParameterProtocol)
+  mutating public func appendParametersAsUrlEncoding(_ parameters: JioLocal.HTTPParameterProtocol)
+  mutating public func appendParametersAsMultiPartFormData(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  mutating public func appendParametersAsJSON(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
   public func isURIParam() -> Swift.Bool
   public func containsFile(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Bool
 }
@@ -72,7 +72,7 @@ open class SSLCert {
 }
 open class HTTPSecurity {
   open var validatedDN: Swift.Bool
-  public convenience init(usePublicKeys: Swift.Bool = false)
+  convenience public init(usePublicKeys: Swift.Bool = false)
   public init(certs: [JioLocal.SSLCert], usePublicKeys: Swift.Bool)
   open func isValid(_ trust: Security.SecTrust, domain: Swift.String?) -> Swift.Bool
   @objc deinit
@@ -81,43 +81,43 @@ open class HTTPSecurity {
   final public let placeholderLabel: UIKit.UILabel
   @objc @IBInspectable open var placeholder: Swift.String {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc @IBInspectable open var placeholderColor: UIKit.UIColor {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc @IBInspectable open var errorViewMsg: Swift.String {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   open var errorViewEnableDisplay: Swift.Bool? {
     get
-    set(newValue)
+    set
   }
   @objc override dynamic open var font: UIKit.UIFont! {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   open var placeholderFont: UIKit.UIFont? {
     get
-    set(newValue)
+    set
   }
   @objc override dynamic open var textAlignment: UIKit.NSTextAlignment {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc override dynamic open var text: Swift.String! {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc override dynamic open var attributedText: Foundation.NSAttributedString! {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc override dynamic open var textContainerInset: UIKit.UIEdgeInsets {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect, textContainer: UIKit.NSTextContainer?)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
@@ -136,15 +136,15 @@ final public class MoaSimulatedImageDownloader {
   open func getData() -> (data: Foundation.Data?, error: Swift.Error?)
   @objc open func encode(with aCoder: Foundation.NSCoder)
   @objc override dynamic public init()
-  @objc required public convenience init(coder aDecoder: Foundation.NSCoder)
-  public convenience init(fileUrl: Foundation.URL)
-  public convenience init(data: Foundation.Data, fileName: Swift.String, mimeType: Swift.String)
+  @objc required convenience public init(coder aDecoder: Foundation.NSCoder)
+  convenience public init(fileUrl: Foundation.URL)
+  convenience public init(data: Foundation.Data, fileName: Swift.String, mimeType: Swift.String)
   @objc deinit
 }
 public struct MoaSettings {
   public var cache: JioLocal.MoaSettingsCache {
     get
-    set(newValue)
+    set
   }
   public var requestTimeoutSeconds: Swift.Double
   public var maximumSimultaneousDownloads: Swift.Int
@@ -185,23 +185,23 @@ open class Response {
 open class HTTP {
   open var onFinish: ((JioLocal.Response) -> Swift.Void)? {
     get
-    set(newValue)
+    set
   }
   open var auth: ((Foundation.URLAuthenticationChallenge) -> Foundation.URLCredential?)? {
     get
-    set(newValue)
+    set
   }
   open var security: JioLocal.HTTPSecurity? {
     get
-    set(newValue)
+    set
   }
   open var progress: ((Swift.Float) -> Swift.Void)? {
     get
-    set(newValue)
+    set
   }
   open var downloadHandler: ((JioLocal.Response, Foundation.URL) -> Swift.Void)? {
     get
-    set(newValue)
+    set
   }
   public init(_ req: Foundation.URLRequest, session: Foundation.URLSession = SharedSession.defaultSession, isDownload: Swift.Bool = false)
   open func run(_ completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil)
@@ -240,7 +240,7 @@ open class HTTP {
   @objc deinit
 }
 public class SharedSession {
-  public static var defaultSession: Foundation.URLSession
+  public static let defaultSession: Foundation.URLSession
   @objc deinit
 }
 open class HTTPQueue {
@@ -278,47 +278,11 @@ public enum MoaError : Swift.Error {
   public func hash(into hasher: inout Swift.Hasher)
 }
 public enum HTTPStatusCode : Swift.Int {
-  case `continue`
-  case switchingProtocols
-  case ok
-  case created
-  case accepted
-  case nonAuthoritativeInformation
-  case noContent
-  case resetContent
-  case partialContent
-  case multipleChoices
-  case movedPermanently
-  case found
-  case seeOther
-  case notModified
-  case useProxy
-  case unused
-  case temporaryRedirect
-  case badRequest
-  case unauthorized
-  case paymentRequired
-  case forbidden
-  case notFound
-  case methodNotAllowed
-  case notAcceptable
-  case proxyAuthenticationRequired
-  case requestTimeout
-  case conflict
-  case gone
-  case lengthRequired
-  case preconditionFailed
-  case requestEntityTooLarge
-  case requestUriTooLong
-  case unsupportedMediaType
-  case requestedRangeNotSatisfiable
-  case expectationFailed
-  case internalServerError
-  case notImplemented
-  case badGateway
-  case serviceUnavailable
-  case gatewayTimeout
-  case httpVersionNotSupported
+  case `continue`, switchingProtocols
+  case ok, created, accepted, nonAuthoritativeInformation, noContent, resetContent, partialContent
+  case multipleChoices, movedPermanently, found, seeOther, notModified, useProxy, unused, temporaryRedirect
+  case badRequest, unauthorized, paymentRequired, forbidden, notFound, methodNotAllowed, notAcceptable, proxyAuthenticationRequired, requestTimeout, conflict, gone, lengthRequired, preconditionFailed, requestEntityTooLarge, requestUriTooLong, unsupportedMediaType, requestedRangeNotSatisfiable, expectationFailed
+  case internalServerError, notImplemented, badGateway, serviceUnavailable, gatewayTimeout, httpVersionNotSupported
   case invalidUrl
   case unknownStatus
   public var statusDescription: Swift.String {
@@ -350,18 +314,16 @@ public enum ReachabilityError : Swift.Error {
   case UnableToSetDispatchQueue
 }
 @available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
-public var ReachabilityChangedNotification: Foundation.NSNotification.Name
+public let ReachabilityChangedNotification: Foundation.NSNotification.Name
 extension NSNotification.Name {
-  public static var reachabilityChanged: Foundation.Notification.Name
+  public static let reachabilityChanged: Foundation.Notification.Name
 }
 public class Reachability {
   public typealias NetworkReachable = (JioLocal.Reachability) -> ()
   public typealias NetworkUnreachable = (JioLocal.Reachability) -> ()
   @available(*, unavailable, renamed: "Conection")
   public enum NetworkStatus : Swift.CustomStringConvertible {
-    case notReachable
-    case reachableViaWiFi
-    case reachableViaWWAN
+    case notReachable, reachableViaWiFi, reachableViaWWAN
     public var description: Swift.String {
       get
     }
@@ -372,9 +334,7 @@ public class Reachability {
     public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Connection : Swift.CustomStringConvertible {
-    case none
-    case wifi
-    case cellular
+    case none, wifi, cellular
     public var description: Swift.String {
       get
     }
@@ -400,8 +360,8 @@ public class Reachability {
     get
   }
   required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability)
-  public convenience init?(hostname: Swift.String)
-  public convenience init?()
+  convenience public init?(hostname: Swift.String)
+  convenience public init?()
   @objc deinit
 }
 extension Reachability {
@@ -423,7 +383,7 @@ extension Reachability {
 extension UIImageView {
   public var moa: JioLocal.Moa {
     get
-    set(newValue)
+    set
   }
 }
 public class JioLocalBridgeConstructor {
@@ -437,13 +397,13 @@ public typealias MoaImageView = UIKit.UIImageView
 final public class Moa {
   public static var settings: JioLocal.MoaSettings {
     get
-    set(newValue)
+    set
   }
   public static var logger: JioLocal.MoaLoggerCallback?
   public init()
   final public var url: Swift.String? {
     get
-    set(newValue)
+    set
   }
   final public func cancel()
   final public var onSuccess: ((JioLocal.MoaImage) -> (JioLocal.MoaImage?))?
@@ -458,3 +418,19 @@ public typealias MoaLoggerCallback = (JioLocal.MoaLogType, Swift.String, Swift.I
 public struct MoaHttpSession {
   public static func clearSession()
 }
+extension JioLocal.HTTPVerb : Swift.Equatable {}
+extension JioLocal.HTTPVerb : Swift.Hashable {}
+extension JioLocal.HTTPVerb : Swift.RawRepresentable {}
+extension JioLocal.MoaLogType : Swift.Equatable {}
+extension JioLocal.MoaLogType : Swift.Hashable {}
+extension JioLocal.MoaLogType : Swift.RawRepresentable {}
+extension JioLocal.MoaError : Swift.Equatable {}
+extension JioLocal.MoaError : Swift.Hashable {}
+extension JioLocal.HTTPStatusCode : Swift.Equatable {}
+extension JioLocal.HTTPStatusCode : Swift.Hashable {}
+extension JioLocal.HTTPStatusCode : Swift.RawRepresentable {}
+@available(*, unavailable, renamed: "Conection")
+extension JioLocal.Reachability.NetworkStatus : Swift.Equatable {}
+@available(*, unavailable, renamed: "Conection")
+extension JioLocal.Reachability.NetworkStatus : Swift.Hashable {}
+extension JioLocal.Reachability.Connection : Swift.Hashable {}
