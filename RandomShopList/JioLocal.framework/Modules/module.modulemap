@@ -1,0 +1,11 @@
+framework module JioLocal {
+  umbrella header "JioLocal.h"
+
+  export *
+  module * { export * }
+}
+
+module JioLocal.Swift {
+    header "JioLocal-Swift.h"
+    requires objc
+}
