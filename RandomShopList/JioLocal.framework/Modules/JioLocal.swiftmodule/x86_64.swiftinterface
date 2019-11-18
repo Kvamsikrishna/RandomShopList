@@ -1,0 +1,460 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name JioLocal
+import CoreLocation
+import Foundation
+@_exported import JioLocal
+import MobileCoreServices
+import Security
+import Swift
+import SystemConfiguration
+import UIKit
+import WebKit
+public struct MoaSettingsCache {
+  public var memoryCapacityBytes: Swift.Int
+  public var diskCapacityBytes: Swift.Int
+  public var requestCachePolicy: Foundation.NSURLRequest.CachePolicy
+  public var diskPath: Swift.String
+}
+public enum HTTPVerb : Swift.String {
+  case GET
+  case POST
+  case PUT
+  case HEAD
+  case DELETE
+  case PATCH
+  case OPTIONS
+  case TRACE
+  case CONNECT
+  case UNKNOWN
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct HTTPPair {
+}
+public class HTTPParameterProtocolSettings {
+  public static var sendEmptyArray: Swift.Bool
+  @objc deinit
+}
+public protocol HTTPParameterProtocol {
+  func createPairs(_ key: Swift.String?) -> [JioLocal.HTTPPair]
+}
+extension Dictionary : JioLocal.HTTPParameterProtocol {
+  public func createPairs(_ key: Swift.String?) -> [JioLocal.HTTPPair]
+}
+extension Array : JioLocal.HTTPParameterProtocol {
+  public func createPairs(_ key: Swift.String?) -> [JioLocal.HTTPPair]
+}
+extension Upload : JioLocal.HTTPParameterProtocol {
+  public func createPairs(_ key: Swift.String?) -> Swift.Array<JioLocal.HTTPPair>
+}
+extension URLRequest {
+  public init?(urlString: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, cachePolicy: Foundation.URLRequest.CachePolicy = .useProtocolCachePolicy, timeoutInterval: Foundation.TimeInterval = 60)
+  public var verb: JioLocal.HTTPVerb {
+    get
+    set(newValue)
+  }
+  public mutating func appendParameters(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  public mutating func appendParametersAsQueryString(_ parameters: JioLocal.HTTPParameterProtocol)
+  public mutating func appendParametersAsUrlEncoding(_ parameters: JioLocal.HTTPParameterProtocol)
+  public mutating func appendParametersAsMultiPartFormData(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  public mutating func appendParametersAsJSON(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+  public func isURIParam() -> Swift.Bool
+  public func containsFile(_ parameters: JioLocal.HTTPParameterProtocol) -> Swift.Bool
+}
+open class SSLCert {
+  public init(data: Foundation.Data)
+  public init(key: Security.SecKey)
+  @objc deinit
+}
+open class HTTPSecurity {
+  open var validatedDN: Swift.Bool
+  public convenience init(usePublicKeys: Swift.Bool = false)
+  public init(certs: [JioLocal.SSLCert], usePublicKeys: Swift.Bool)
+  open func isValid(_ trust: Security.SecTrust, domain: Swift.String?) -> Swift.Bool
+  @objc deinit
+}
+@objc @IBDesignable open class KMPlaceholderTextView : UIKit.UITextView {
+  final public let placeholderLabel: UIKit.UILabel
+  @objc @IBInspectable open var placeholder: Swift.String {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc @IBInspectable open var placeholderColor: UIKit.UIColor {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc @IBInspectable open var errorViewMsg: Swift.String {
+    @objc get
+    @objc set(newValue)
+  }
+  open var errorViewEnableDisplay: Swift.Bool? {
+    get
+    set(newValue)
+  }
+  @objc override dynamic open var font: UIKit.UIFont! {
+    @objc get
+    @objc set(newValue)
+  }
+  open var placeholderFont: UIKit.UIFont? {
+    get
+    set(newValue)
+  }
+  @objc override dynamic open var textAlignment: UIKit.NSTextAlignment {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc override dynamic open var text: Swift.String! {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc override dynamic open var attributedText: Foundation.NSAttributedString! {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc override dynamic open var textContainerInset: UIKit.UIEdgeInsets {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, textContainer: UIKit.NSTextContainer?)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  open func createErrorView(message: Swift.String)
+  @objc override dynamic open func layoutSubviews()
+  @objc deinit
+}
+final public class MoaSimulatedImageDownloader {
+  final public let url: Swift.String
+  final public var cancelled: Swift.Bool
+  final public func respondWithImage(_ image: JioLocal.MoaImage)
+  final public func respondWithError(_ error: Swift.Error? = nil, response: Foundation.HTTPURLResponse? = nil)
+  @objc deinit
+}
+@objc open class Upload : ObjectiveC.NSObject, Foundation.NSCoding {
+  open func getData() -> (data: Foundation.Data?, error: Swift.Error?)
+  @objc open func encode(with aCoder: Foundation.NSCoder)
+  @objc override dynamic public init()
+  @objc required public convenience init(coder aDecoder: Foundation.NSCoder)
+  public convenience init(fileUrl: Foundation.URL)
+  public convenience init(data: Foundation.Data, fileName: Swift.String, mimeType: Swift.String)
+  @objc deinit
+}
+public struct MoaSettings {
+  public var cache: JioLocal.MoaSettingsCache {
+    get
+    set(newValue)
+  }
+  public var requestTimeoutSeconds: Swift.Double
+  public var maximumSimultaneousDownloads: Swift.Int
+}
+public protocol HTTPSerializeProtocol {
+  func serialize(_ request: inout Foundation.URLRequest, parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+}
+public struct HTTPParameterSerializer : JioLocal.HTTPSerializeProtocol {
+  public init()
+  public func serialize(_ request: inout Foundation.URLRequest, parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+}
+public struct JSONParameterSerializer : JioLocal.HTTPSerializeProtocol {
+  public init()
+  public func serialize(_ request: inout Foundation.URLRequest, parameters: JioLocal.HTTPParameterProtocol) -> Swift.Error?
+}
+open class Response {
+  open var headers: Swift.Dictionary<Swift.String, Swift.String>?
+  open var mimeType: Swift.String?
+  open var suggestedFilename: Swift.String?
+  open var data: Foundation.Data {
+    get
+  }
+  open var imageData: Foundation.Data?
+  open var statusCode: Swift.Int?
+  open var URL: Foundation.URL?
+  open var error: Swift.Error?
+  open var text: Swift.String? {
+    get
+  }
+  open var description: Swift.String {
+    get
+  }
+  open var jsonData: Swift.Dictionary<Swift.String, Swift.AnyObject>? {
+    get
+  }
+  @objc deinit
+}
+open class HTTP {
+  open var onFinish: ((JioLocal.Response) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  open var auth: ((Foundation.URLAuthenticationChallenge) -> Foundation.URLCredential?)? {
+    get
+    set(newValue)
+  }
+  open var security: JioLocal.HTTPSecurity? {
+    get
+    set(newValue)
+  }
+  open var progress: ((Swift.Float) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  open var downloadHandler: ((JioLocal.Response, Foundation.URL) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  public init(_ req: Foundation.URLRequest, session: Foundation.URLSession = SharedSession.defaultSession, isDownload: Swift.Bool = false)
+  open func run(_ completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil)
+  open func cancel()
+  @discardableResult
+  open class func GET(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func HEAD(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func DELETE(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func POST(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func POST_IMAGE(_ url: Swift.String, data: Foundation.Data, completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func PUT(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  @discardableResult
+  open class func PATCH(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  open class func Download(_ url: Swift.String, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completion: @escaping ((JioLocal.Response, Foundation.URL) -> Swift.Void))
+  open class func New(_ url: Swift.String, method: JioLocal.HTTPVerb, parameters: JioLocal.HTTPParameterProtocol? = nil, headers: [Swift.String : Swift.String]? = nil, requestSerializer: JioLocal.HTTPSerializeProtocol = HTTPParameterSerializer(), completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  open class func NewImage(_ url: Swift.String, method: JioLocal.HTTPVerb, data: Foundation.Data, completionHandler: ((JioLocal.Response) -> Swift.Void)? = nil) -> JioLocal.HTTP?
+  open class func globalAuth(_ handler: ((Foundation.URLAuthenticationChallenge) -> Foundation.URLCredential?)?)
+  open class func globalSecurity(_ security: JioLocal.HTTPSecurity?)
+  open class func globalRequest(_ handler: ((inout Foundation.URLRequest) -> Swift.Void)?)
+  @objc deinit
+}
+@objc public class DelegateManager : ObjectiveC.NSObject, Foundation.URLSessionDataDelegate, Foundation.URLSessionDownloadDelegate {
+  @objc public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  @objc public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: Swift.Error?)
+  @objc public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  @objc public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  @objc public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  public func progressHandler(_ response: JioLocal.Response, expectedLength: Swift.Int64, currentLength: Swift.Int64)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class SharedSession {
+  public static var defaultSession: Foundation.URLSession
+  @objc deinit
+}
+open class HTTPQueue {
+  public var maxSimultaneousRequest: Swift.Int
+  public init(maxSimultaneousRequest: Swift.Int)
+  open func add(request: Foundation.URLRequest)
+  open func add(http: JioLocal.HTTP)
+  open func finished(queue: Dispatch.DispatchQueue = DispatchQueue.main, completionHandler: @escaping (() -> Swift.Void))
+  @objc deinit
+}
+public func MoaLoggerText(_ type: JioLocal.MoaLogType, url: Swift.String, statusCode: Swift.Int?, error: Swift.Error?) -> Swift.String
+public enum MoaLogType : Swift.Int {
+  case requestSent
+  case requestCancelled
+  case responseSuccess
+  case responseError
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public func MoaConsoleLogger(_ type: JioLocal.MoaLogType, url: Swift.String, statusCode: Swift.Int?, error: Swift.Error?)
+public enum MoaError : Swift.Error {
+  case invalidUrlString
+  case httpStatusCodeIsNot200
+  case missingResponseContentTypeHttpHeader
+  case notAnImageContentTypeInResponseHttpHeader
+  case failedToReadImageData
+  case simulatedError
+  public static func == (a: JioLocal.MoaError, b: JioLocal.MoaError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum HTTPStatusCode : Swift.Int {
+  case `continue`
+  case switchingProtocols
+  case ok
+  case created
+  case accepted
+  case nonAuthoritativeInformation
+  case noContent
+  case resetContent
+  case partialContent
+  case multipleChoices
+  case movedPermanently
+  case found
+  case seeOther
+  case notModified
+  case useProxy
+  case unused
+  case temporaryRedirect
+  case badRequest
+  case unauthorized
+  case paymentRequired
+  case forbidden
+  case notFound
+  case methodNotAllowed
+  case notAcceptable
+  case proxyAuthenticationRequired
+  case requestTimeout
+  case conflict
+  case gone
+  case lengthRequired
+  case preconditionFailed
+  case requestEntityTooLarge
+  case requestUriTooLong
+  case unsupportedMediaType
+  case requestedRangeNotSatisfiable
+  case expectationFailed
+  case internalServerError
+  case notImplemented
+  case badGateway
+  case serviceUnavailable
+  case gatewayTimeout
+  case httpVersionNotSupported
+  case invalidUrl
+  case unknownStatus
+  public var statusDescription: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+final public class MoaSimulator {
+  @discardableResult
+  public static func simulate(_ urlPart: Swift.String) -> JioLocal.MoaSimulator
+  @discardableResult
+  public static func autorespondWithImage(_ urlPart: Swift.String, image: JioLocal.MoaImage) -> JioLocal.MoaSimulator
+  @discardableResult
+  public static func autorespondWithError(_ urlPart: Swift.String, error: Swift.Error? = nil, response: Foundation.HTTPURLResponse? = nil) -> JioLocal.MoaSimulator
+  public static func clear()
+  final public var downloaders: [JioLocal.MoaSimulatedImageDownloader]
+  final public func respondWithImage(_ image: JioLocal.MoaImage)
+  final public func respondWithError(_ error: Swift.Error? = nil, response: Foundation.HTTPURLResponse? = nil)
+  @objc deinit
+}
+public enum ReachabilityError : Swift.Error {
+  case FailedToCreateWithAddress(Darwin.sockaddr_in)
+  case FailedToCreateWithHostname(Swift.String)
+  case UnableToSetCallback
+  case UnableToSetDispatchQueue
+}
+@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
+public var ReachabilityChangedNotification: Foundation.NSNotification.Name
+extension NSNotification.Name {
+  public static var reachabilityChanged: Foundation.Notification.Name
+}
+public class Reachability {
+  public typealias NetworkReachable = (JioLocal.Reachability) -> ()
+  public typealias NetworkUnreachable = (JioLocal.Reachability) -> ()
+  @available(*, unavailable, renamed: "Conection")
+  public enum NetworkStatus : Swift.CustomStringConvertible {
+    case notReachable
+    case reachableViaWiFi
+    case reachableViaWWAN
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: JioLocal.Reachability.NetworkStatus, b: JioLocal.Reachability.NetworkStatus) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Connection : Swift.CustomStringConvertible {
+    case none
+    case wifi
+    case cellular
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: JioLocal.Reachability.Connection, b: JioLocal.Reachability.Connection) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public var whenReachable: JioLocal.Reachability.NetworkReachable?
+  public var whenUnreachable: JioLocal.Reachability.NetworkUnreachable?
+  final public let reachableOnWWAN: Swift.Bool
+  public var allowsCellularConnection: Swift.Bool
+  public var notificationCenter: Foundation.NotificationCenter
+  public var currentReachabilityString: Swift.String {
+    get
+  }
+  @available(*, unavailable, renamed: "connection")
+  public var currentReachabilityStatus: JioLocal.Reachability.Connection {
+    get
+  }
+  public var connection: JioLocal.Reachability.Connection {
+    get
+  }
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability)
+  public convenience init?(hostname: Swift.String)
+  public convenience init?()
+  @objc deinit
+}
+extension Reachability {
+  public func startNotifier() throws
+  public func stopNotifier()
+  public var isReachable: Swift.Bool {
+    get
+  }
+  public var isReachableViaWWAN: Swift.Bool {
+    get
+  }
+  public var isReachableViaWiFi: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+extension UIImageView {
+  public var moa: JioLocal.Moa {
+    get
+    set(newValue)
+  }
+}
+public class JioLocalBridgeConstructor {
+  public init()
+  public static func searchJioLocalBusinessList(parentViewController: UIKit.UIViewController?)
+  public static func addJioLocalScreen(parentViewController: UIKit.UIViewController?, frame: CoreGraphics.CGRect) -> UIKit.UIView
+  @objc deinit
+}
+public typealias MoaImage = UIKit.UIImage
+public typealias MoaImageView = UIKit.UIImageView
+final public class Moa {
+  public static var settings: JioLocal.MoaSettings {
+    get
+    set(newValue)
+  }
+  public static var logger: JioLocal.MoaLoggerCallback?
+  public init()
+  final public var url: Swift.String? {
+    get
+    set(newValue)
+  }
+  final public func cancel()
+  final public var onSuccess: ((JioLocal.MoaImage) -> (JioLocal.MoaImage?))?
+  final public var onSuccessAsync: ((JioLocal.MoaImage) -> (JioLocal.MoaImage?))?
+  final public var onError: ((Swift.Error?, Foundation.HTTPURLResponse?) -> ())?
+  final public var onErrorAsync: ((Swift.Error?, Foundation.HTTPURLResponse?) -> ())?
+  final public var errorImage: JioLocal.MoaImage?
+  public static var errorImage: JioLocal.MoaImage?
+  @objc deinit
+}
+public typealias MoaLoggerCallback = (JioLocal.MoaLogType, Swift.String, Swift.Int?, Swift.Error?) -> ()
+public struct MoaHttpSession {
+  public static func clearSession()
+}
